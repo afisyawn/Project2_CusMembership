@@ -87,8 +87,7 @@ class MembershipUser:
         print(self.user_member)
 
     def calculate_price(self, list_item):
-        self.list_item = list_item
-        total_item = sum(self.list_item)
+        total_item = sum(list_item)
 
         #Platinum membership
         if self.user_member == self.membership[0]:
