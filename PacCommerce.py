@@ -38,35 +38,28 @@ class MembershipUser:
         
 
     def show_benefit(self):
-        self.first_row = ["Membership", "Discount", "Another Benefit"]
         self.discount = ["15%", "10%", "8%"]
         self.benefit = ["Benefit Gold + Silver + Cashback max. 30%",
                         "Benefit Silver + Voucher Ojek Online",
                         "Voucher Makanan"]
-        self.table_benefit = [self.membership,
-                                 self.discount,
-                                 self.benefit]
         
-        self.table_benefit= list(map(list, zip(*self.table_benefit)))
-        table_benefit = tabulate(self.table_benefit,
-                                 headers = self.first_row,
-                                 tablefmt="github",
-                                 colalign = ["center"] * len(self.first_row))
+        self.table_benefit = {"Membership" : self.membership,
+                              "Discount" : self.discount,
+                              "Another Benefit" : self.benefit}
+        
+        table_benefit = tabulate(self.table_benefit, headers = "keys", tablefmt="github",
+                                 colalign = ["center"] * len(self.table_benefit))
         
         print("Benefit Membership PacCommerce\n")
         print(table_benefit)
 
     def show_requirenments(self):
-        self.first_row = ["Membership", "Monthly Expense (juta)", "Monthly Income (juta)"]
-        self.table_requirements = [self.membership,
-                                   self.member_monthly_ex,
-                                   self.member_monthly_in]
+        self.table_requirements = {"Membership" : self.membership,
+                                   "Monthly Expense (juta)" : self.member_monthly_ex,
+                                   "Monthly Income (juta)" : self.member_monthly_in}
         
-        self.table_requirements= list(map(list, zip(*self.table_requirements)))
-        table_requirements = tabulate(self.table_requirements,
-                                      headers = self.first_row,
-                                      tablefmt="github",
-                                      colalign = ["center"] * len(self.first_row))
+        table_requirements = tabulate(self.table_requirements, headers = "keys", tablefmt="github",
+                                      colalign = ["center"] * len(self.table_requirements))
         
         print("Requirements Membership PacCommerce\n")
         print(table_requirements)
