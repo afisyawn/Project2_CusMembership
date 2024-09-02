@@ -14,7 +14,7 @@ class MyError(Exception):
 
 
 class MembershipUser:
-    def __init__(self, username = "", monthly_expense = 0, monthly_income = 0,):
+    def __init__(self, username = "", monthly_expense = 0, monthly_income = 0):
         self.username = username
         self.monthly_expense = monthly_expense
         self.monthly_income = monthly_income
@@ -50,7 +50,7 @@ class MembershipUser:
         self.table_benefit= list(map(list, zip(*self.table_benefit)))
         table_benefit = tabulate(self.table_benefit,
                                  headers = self.first_row,
-                                 tablefmt="orgtbl",
+                                 tablefmt="github",
                                  colalign = ["center"] * len(self.first_row))
         
         print("Benefit Membership PacCommerce\n")
@@ -65,7 +65,7 @@ class MembershipUser:
         self.table_requirements= list(map(list, zip(*self.table_requirements)))
         table_requirements = tabulate(self.table_requirements,
                                       headers = self.first_row,
-                                      tablefmt="orgtbl",
+                                      tablefmt="github",
                                       colalign = ["center"] * len(self.first_row))
         
         print("Requirements Membership PacCommerce\n")
