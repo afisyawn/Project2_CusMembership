@@ -38,44 +38,49 @@ class MembershipUser:
         
 
     def show_benefit(self):
-        self.discount = ["15%", "10%", "8%"]
-        self.benefit = ["Benefit Gold + Silver + Cashback max. 30%",
+        discount = ["15%", "10%", "8%"]
+        benefit = ["Benefit Gold + Silver + Cashback max. 30%",
                         "Benefit Silver + Voucher Ojek Online",
                         "Voucher Makanan"]
         
-        self.table_benefit = {"Membership" : self.membership,
-                              "Discount" : self.discount,
-                              "Another Benefit" : self.benefit}
+        table_benefit = {"Membership" : self.membership,
+                         "Discount" : discount,
+                         "Another Benefit" : benefit}
         
-        table_benefit = tabulate(self.table_benefit, headers = "keys", tablefmt="github",
-                                 colalign = ["center"] * len(self.table_benefit))
+        table_benefit = tabulate(table_benefit, headers = "keys", tablefmt="github",
+                                 colalign = ["center"] * len(table_benefit))
         
         print("Benefit Membership PacCommerce\n")
         print(table_benefit)
 
     def show_requirenments(self):
-        self.table_requirements = {"Membership" : self.membership,
-                                   "Monthly Expense (juta)" : self.member_monthly_ex,
-                                   "Monthly Income (juta)" : self.member_monthly_in}
+        table_requirements = {"Membership" : self.membership,
+                              "Monthly Expense (juta)" : self.member_monthly_ex,
+                              "Monthly Income (juta)" : self.member_monthly_in}
         
-        table_requirements = tabulate(self.table_requirements, headers = "keys", tablefmt="github",
-                                      colalign = ["center"] * len(self.table_requirements))
+        #Create table of membership requirements
+        table_requirements = tabulate(table_requirements, headers = "keys", tablefmt="github",
+                                      colalign = ["center"] * len(table_requirements))
         
         print("Requirements Membership PacCommerce\n")
         print(table_requirements)
 
     def predict_membership(self, monthly_expense, monthly_income):
-        self.monthly_expense = monthly_expense
-        self.monthly_income = monthly_income
-        user_data = [self.monthly_expense, self.monthly_income]
+        user_data = [monthly_expense, monthly_income]
+
+        #Create nested list of member requirements
         member_data = list(zip(self.member_monthly_ex, self.member_monthly_in))
 
+        #Create list of user dictance membership
         dist = [calc_dist(user_data, member_data[i]) for i in range(len(member_data))]
         
+        #Create dictionary of user distance membership
         user_predict = dict(zip(self.membership, dist))
 
+        #Find the nearest memmbership
         self.user_member = self.membership[dist.index(min(dist))]
         
+        #Update user member to database
         self.user_database[self.username] = self.user_member
 
         print(f"Hasil perhitungan Euclidean Distance dari user {self.username} adalah {user_predict}")
